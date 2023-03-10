@@ -1,5 +1,8 @@
+import { useRoutes } from "react-router-dom";
+import { routes } from "./routes";
+import "./App.css";
+
 export default function App() {
-  return (
-    <h1 className="text-3xl text-center font-bold underline">Hello world!</h1>
-  );
+  const element = useRoutes(routes);
+  return <div className="bg-gray-100 App">{element}</div>;
 }
