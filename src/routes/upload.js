@@ -1,27 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
+const uploadController = require("../controllers/upload");
 
-const storage = multer.diskStorage({
-  destination: (req, res, cb) => {
-    cb(null, "media/uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname.replace(/ /g, "_"));
-  },
-});
-const upload = multer({
-  storage,
-  limit: {
-    filesize: 1024 * 1024 * 50,
-  },
-});
+const storage = require("../lib/multer");
 
-router.post("/", upload.single("file"), async (req, res, next) => {
-  return await res.status(200).json({
-    status: "success",
-    message: "Video Uploaded Successfully",
-  });
-});
+router.post("/", storage.single("file"), uploadController.uploadVideo);
 
 module.exports = router;

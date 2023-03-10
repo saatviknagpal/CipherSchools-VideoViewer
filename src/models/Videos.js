@@ -5,16 +5,19 @@ const Videos = new mongoose.Schema({
     required: true,
     type: String,
   },
-  description: {
+  url: {
     required: true,
     type: String,
   },
   views: {
-    required: true,
+    // required: true,
     type: Number,
   },
+  cloudinary_id: {
+    type: String,
+  },
   likes: {
-    required: true,
+    // required: true,
     type: Number,
   },
   comments: [
@@ -24,7 +27,6 @@ const Videos = new mongoose.Schema({
     },
   ],
   description: {
-    required: true,
     type: String,
   },
 });

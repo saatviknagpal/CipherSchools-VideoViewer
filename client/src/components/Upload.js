@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Upload() {
   const [selectedVideos, setSelectedVideos] = useState(null);
   const [loaded, setLoaded] = useState(0);
+  const [description, setDescription] = useState("");
 
   const navigate = useNavigate();
 
@@ -34,15 +35,16 @@ export default function Upload() {
       };
     }
   }
-  function clearFiles() {
-    setVideoPreview(null);
-  }
+  //   function clearFiles() {
+  //     setVideoPreview(null);
+  //   }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData();
     console.log(selectedVideos);
     data.append("file", selectedVideos);
+    data.append("description", description);
     console.log(data);
     try {
       const fetch = await axios.post("/api/upload", data, {
@@ -88,6 +90,20 @@ export default function Upload() {
             <div className="preview">
               {videoPreview != null && (
                 <video controls src={videoPreview}></video>
+              )}
+            </div>
+            <div className="mt-2">
+              {videoPreview != null && (
+                <>
+                  <input
+                    type="text"
+                    className="block w-full px-4 py-2 mt-2 text-red-500 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    name="description"
+                    placeholder="Enter video description"
+                    required
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </>
               )}
             </div>
             <ProgressBar
