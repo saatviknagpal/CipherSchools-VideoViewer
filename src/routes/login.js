@@ -24,10 +24,7 @@ router.post("/", async (req, res, next) => {
           name: emailExist.name,
           email: emailExist.email,
         },
-        process.env.JWT_SECRET_KEY,
-        {
-          expiresIn: "1h",
-        }
+        process.env.JWT_SECRET_KEY
       );
       return res.status(200).json({
         status: "success",

@@ -21,9 +21,12 @@ export default function Home() {
       <div class="container  mx-auto px-4 md:px-12 min-h-screen ">
         <div class="flex justify-center py-20 flex-wrap -mx-1 lg: gap-5">
           {videoData.length !== 0 ? (
-            videoData.map((data, index) => {
-              return <VideoCards data={data} key={index} />;
-            })
+            videoData
+              .slice(0)
+              .reverse()
+              .map((data, index) => {
+                return <VideoCards data={data} key={index} />;
+              })
           ) : (
             <p>No videos available</p>
           )}

@@ -14,6 +14,7 @@ exports.uploadVideo = (req, res) => {
         console.log(err);
         return res.status(500).send(err);
       }
+
       var upload = new Videos({
         title: req.file.originalname,
         url: result.url,

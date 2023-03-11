@@ -2,15 +2,18 @@ const express = require("express");
 const router = express.Router();
 const Videos = require("../models/Videos");
 
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log(req.params);
   try {
-    const allVideos = await Videos.find().exec();
-    res.status(200).json({
+    const find = await Videos.findById(id).populate("comments");
+
+    return res.status(200).json({
       status: "success",
-      allVideos,
+      videoDetails: find,
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: "fail",
       message: error.message,
     });

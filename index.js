@@ -6,6 +6,8 @@ const signup = require("./src/routes/signup");
 const login = require("./src/routes/login");
 const upload = require("./src/routes/upload");
 const videoList = require("./src/routes/videoList");
+const videoDetails = require("./src/routes/videoDetails");
+const comment = require("./src/routes/comment");
 
 mongoose.connect(mongoString);
 const database = mongoose.connection;
@@ -36,6 +38,8 @@ app.use("/api/signup", signup);
 app.use("/api/login", login);
 app.use("/api/upload", checkauth, upload);
 app.use("/api/videoList", videoList);
+app.use("/api/videoDetails", videoDetails);
+app.use("/api/addComment", checkauth, comment);
 
 app.listen(3000, () => {
   console.log(`Server Started at ${3000}`);
