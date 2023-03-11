@@ -48,6 +48,9 @@ export default function Upload() {
     console.log(data);
     try {
       const fetch = await axios.post("/api/upload", data, {
+        headers: {
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
         onUploadProgress: (ProgressEvent) => {
           setLoaded((ProgressEvent.loaded / ProgressEvent.total) * 100);
         },
@@ -57,7 +60,8 @@ export default function Upload() {
         toast.success("Upload successful");
       }
     } catch (err) {
-      toast.error(`Upload Fail with status: ${err.message}`);
+      console.log(err);
+      toast.error(`Upload Fail with status: ${err.response.data.message}`);
     }
   };
 

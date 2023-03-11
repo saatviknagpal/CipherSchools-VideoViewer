@@ -12,6 +12,10 @@ const Videos = new mongoose.Schema({
   views: {
     // required: true,
     type: Number,
+    default: 0,
+  },
+  uploaded_by: {
+    type: String,
   },
   cloudinary_id: {
     type: String,
@@ -19,6 +23,7 @@ const Videos = new mongoose.Schema({
   likes: {
     // required: true,
     type: Number,
+    default: 0,
   },
   comments: [
     {

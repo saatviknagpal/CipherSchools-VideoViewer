@@ -24,6 +24,7 @@ export default function Login() {
 
       const res = fetch.data;
       if (res.status === "success") {
+        localStorage.setItem("token", JSON.stringify(res.token));
         navigate("/");
       }
     } catch (error) {

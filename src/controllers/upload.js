@@ -17,6 +17,7 @@ exports.uploadVideo = (req, res) => {
       var upload = new Videos({
         title: req.file.originalname,
         url: result.url,
+        uploaded_by: req.userData.name,
         cloudinary_id: result.public_id,
         description: req.body.description,
       });
