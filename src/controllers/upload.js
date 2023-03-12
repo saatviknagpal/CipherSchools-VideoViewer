@@ -19,6 +19,7 @@ exports.uploadVideo = (req, res) => {
         title: req.file.originalname,
         url: result.url,
         uploaded_by: req.userData.name,
+        user_id: req.userData.userId,
         cloudinary_id: result.public_id,
         description: req.body.description,
       });

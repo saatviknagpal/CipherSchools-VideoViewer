@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const Videos = new mongoose.Schema(
   {
+    user_id: {
+      type: String,
+    },
     title: {
       required: true,
       type: String,
