@@ -10,6 +10,7 @@ export default function Upload() {
   const [selectedVideos, setSelectedVideos] = useState(null);
   const [loaded, setLoaded] = useState(0);
   const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [videoPreview, setVideoPreview] = useState(null);
@@ -53,6 +54,7 @@ export default function Upload() {
     console.log(selectedVideos);
     data.append("file", selectedVideos);
     data.append("description", description);
+    data.append("title", title);
     console.log(data);
     try {
       const fetch = await axios.post(
@@ -98,6 +100,7 @@ export default function Upload() {
             PS: Make sure the video is under 10 MB or else it will take alot of
             time to upload. Max Limit - 50 MB
           </p>
+          <p>Supported Video Formats - .mp4, .mkv</p>
           <form className="mt-6" onSubmit={handleSubmit}>
             <div className="mb-2">
               <label
@@ -124,6 +127,14 @@ export default function Upload() {
             <div className="mt-2">
               {videoPreview != null && (
                 <>
+                  <input
+                    type="text"
+                    className="block w-full px-4 py-2 mt-2 text-red-500 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    name="title"
+                    placeholder="Enter video title"
+                    required
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                   <input
                     type="text"
                     className="block w-full px-4 py-2 mt-2 text-red-500 bg-white border rounded-md focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"

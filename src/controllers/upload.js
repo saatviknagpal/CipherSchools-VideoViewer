@@ -16,7 +16,7 @@ exports.uploadVideo = (req, res) => {
       }
 
       var upload = new Videos({
-        title: req.file.originalname,
+        title: req.body.title,
         url: result.url,
         uploaded_by: req.userData.name,
         user_id: req.userData.userId,
