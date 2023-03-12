@@ -1,23 +1,31 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Loader from "./Loader";
 import VideoCards from "./VideoCards";
 
 export default function Home() {
   const [videoData, setVideoData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const fetchVideos = async () => {
+    setLoading(true);
     const axi = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/videoList`
     );
 
     const res = axi.data;
-
+    setLoading(false);
     if (res.status === "success") {
       setVideoData(res.allVideos);
     }
   };
+
   useEffect(() => {
     fetchVideos();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <>
       <div class="container  mx-auto px-4 md:px-12 min-h-screen ">

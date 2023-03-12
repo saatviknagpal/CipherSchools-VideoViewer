@@ -1,19 +1,20 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import ProgressBar from "@ramonak/react-progress-bar";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "./Loader";
 
 export default function Upload() {
   const [selectedVideos, setSelectedVideos] = useState(null);
   const [loaded, setLoaded] = useState(0);
   const [description, setDescription] = useState("");
-
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const [videoPreview, setVideoPreview] = useState(null);
   const filePicekerRef = useRef(null);
+  const token = localStorage.getItem("token");
 
   function previewFile(e) {
     setSelectedVideos(e.target.files[0]);
@@ -39,8 +40,15 @@ export default function Upload() {
   //     setVideoPreview(null);
   //   }
 
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const data = new FormData();
     console.log(selectedVideos);
     data.append("file", selectedVideos);
@@ -61,14 +69,19 @@ export default function Upload() {
         }
       );
       const res = fetch.data;
+      setLoading(false);
       if (res.status === "success") {
         toast.success("Upload successful");
       }
     } catch (err) {
-      console.log(err);
+      setLoading(false);
       toast.error(`Upload Fail with status: ${err.response.data.message}`);
     }
   };
+
+  // if (loading) {
+  //   return <Loader />;
+  // }
 
   return (
     <>
@@ -119,6 +132,7 @@ export default function Upload() {
               bgColor="#21e254"
               labelColor="#ffffff"
               completed={loaded}
+              maxCompleted={100}
               className="mt-4 mb-1"
             >
               {isNaN(Math.round(loaded, 2)) ? 0 : Math.round(loaded, 2)}%

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 export default function Signup() {
   const [formData, setFormData] = useState({});
 
@@ -24,16 +25,17 @@ export default function Signup() {
 
       const res = fetch.data;
       if (res.status === "success") {
-        window.alert(res.message);
+        toast.success("You can now login");
       }
     } catch (error) {
-      window.alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <>
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+        <ToastContainer />
         <div className="w-11/12 p-6 m-auto bg-white rounded-xl shadow-xl lg:max-w-xl">
           <h1 className="text-3xl pt-3 font-semibold text-center text-red-600">
             Signup

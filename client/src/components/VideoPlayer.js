@@ -12,22 +12,32 @@ import {
 
 import { BsFillShareFill } from "react-icons/bs";
 import { toast, ToastContainer } from "react-toastify";
+import Loader from "./Loader";
 
 export default function VideoPlayer() {
   const [videoData, setVideoData] = useState({});
   const [comments, setComments] = useState([]);
   const [liked, setLiked] = useState([]);
   const [disliked, setDisliked] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const { id } = useParams();
+
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const user_id = userDetails?._id;
+
+  const token = localStorage.getItem("token");
+
   const fetchVideoDetails = async () => {
+    setLoading(true);
+
     const axi = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/videoDetails/${id}`
     );
 
     const res = axi.data;
 
+    setLoading(false);
     if (res.status === "success") {
       setVideoData(res.videoDetails);
       setComments(res.videoDetails.comments);
@@ -36,11 +46,13 @@ export default function VideoPlayer() {
     }
   };
   const fetchViews = async () => {
+    setLoading(true);
     const axi = await axios.put(
       `${process.env.REACT_APP_BACKEND_URL}/api/views/${id}`
     );
 
     const res = axi.data;
+    setLoading(false);
 
     console.log(res);
   };
@@ -101,7 +113,10 @@ export default function VideoPlayer() {
     toast.info("Copied Link to Clipboard");
   }
 
-  console.log(liked, disliked);
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <div className="relative flex lg:h-screen lg:flex-row flex-col overflow-hidden md:justify-center mx-auto bg-white">
@@ -110,7 +125,7 @@ export default function VideoPlayer() {
           <ReactPlayer
             url={videoData?.url}
             width="w-full"
-            height="h-full"
+            height={350}
             controls
           />
 
@@ -125,35 +140,65 @@ export default function VideoPlayer() {
                 {videoData?.uploaded_by}
               </p>
               <p className="flex-1">{videoData?.views} Views</p>
-              <div className="flex gap-2">
-                <button className="flex justify-center gap-1 items-center">
-                  {!liked?.includes(user_id) ? (
-                    <AiOutlineLike
-                      onClick={() => {
-                        handleLike();
-                      }}
-                      className="h-6 w-6"
-                    />
-                  ) : (
-                    <AiTwotoneLike className="h-6 w-6" />
-                  )}
+              {token ? (
+                <div className="flex gap-2">
+                  <button className="flex justify-center gap-1 items-center">
+                    {!liked?.includes(user_id) ? (
+                      <AiOutlineLike
+                        onClick={() => {
+                          handleLike();
+                        }}
+                        className="h-6 w-6"
+                      />
+                    ) : (
+                      <AiTwotoneLike className="h-6 w-6" />
+                    )}
 
-                  <p className="text-lg">{liked?.length}</p>
-                </button>
-                <button className="flex justify-center gap-1 items-center">
-                  {!disliked?.includes(user_id) ? (
-                    <AiOutlineDislike
-                      onClick={() => {
-                        handleDislike();
-                      }}
-                      className="h-6 w-6"
-                    />
-                  ) : (
-                    <AiTwotoneDislike className="h-6 w-6" />
-                  )}
-                  <p className="text-lg">{disliked?.length}</p>
-                </button>
-              </div>
+                    <p className="text-lg">{liked?.length}</p>
+                  </button>
+                  <button className="flex justify-center gap-1 items-center">
+                    {!disliked?.includes(user_id) ? (
+                      <AiOutlineDislike
+                        onClick={() => {
+                          handleDislike();
+                        }}
+                        className="h-6 w-6"
+                      />
+                    ) : (
+                      <AiTwotoneDislike className="h-6 w-6" />
+                    )}
+                    <p className="text-lg">{disliked?.length}</p>
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <button
+                    disabled
+                    className="flex justify-center gap-1 items-center"
+                  >
+                    {!liked?.includes(user_id) ? (
+                      <AiOutlineLike className="h-6 w-6" />
+                    ) : (
+                      <AiTwotoneLike className="h-6 w-6" />
+                    )}
+
+                    <p className="text-lg">{liked?.length}</p>
+                  </button>
+                  <button
+                    disabled
+                    className="flex justify-center gap-1 items-center"
+                  >
+                    {!disliked?.includes(user_id) ? (
+                      <AiOutlineDislike className="h-6 w-6" />
+                    ) : (
+                      <AiTwotoneDislike className="h-6 w-6" />
+                    )}
+                    <p disabled className="text-lg">
+                      {disliked?.length}
+                    </p>
+                  </button>
+                </div>
+              )}
 
               <button
                 onClick={copy}

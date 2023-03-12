@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Login() {
   const [formData, setFormData] = useState({});
@@ -32,13 +33,14 @@ export default function Login() {
         localStorage.setItem("userDetails", JSON.stringify(res.userDetails));
       }
     } catch (error) {
-      window.alert(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <>
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+        <ToastContainer />
         <div className="w-11/12 p-6 m-auto bg-white rounded-xl shadow-xl lg:max-w-xl">
           <h1 className="text-3xl p-3 font-semibold text-center text-red-500">
             Login
