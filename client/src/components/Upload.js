@@ -79,18 +79,22 @@ export default function Upload() {
     }
   };
 
-  // if (loading) {
-  //   return <Loader />;
-  // }
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <>
-      <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+      <div className="relative flex flex-col justify-center min-h-screen  overflow-hidden">
         <ToastContainer />
         <div className="w-11/12 p-6 m-auto bg-white rounded-xl shadow-xl lg:max-w-xl">
           <h1 className="text-3xl p-3 font-semibold text-center text-red-500">
             Video Upload
           </h1>
+          <p className="text-sm">
+            PS: Make sure the video is under 10 MB or else it will take alot of
+            time to upload. Max Limit - 50 MB
+          </p>
           <form className="mt-6" onSubmit={handleSubmit}>
             <div className="mb-2">
               <label
