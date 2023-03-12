@@ -26,6 +26,7 @@ export default function Login() {
       if (res.status === "success") {
         localStorage.setItem("token", JSON.stringify(res.token));
         navigate("/");
+        localStorage.setItem("userDetails", JSON.stringify(res.userDetails));
       }
     } catch (error) {
       window.alert(error.response.data.message);

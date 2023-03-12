@@ -30,6 +30,7 @@ router.post("/", async (req, res, next) => {
         status: "success",
         message: "Authentication Successful",
         token: token,
+        userDetails: emailExist,
       });
     } else {
       throw Error;

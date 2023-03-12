@@ -41,4 +41,16 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const commentDetails = await Comment.findById(id).populate("replies");
+
+  return res.status(200).json({
+    status: "success",
+    message: "Comment found",
+    commentDetails,
+  });
+});
+
 module.exports = router;

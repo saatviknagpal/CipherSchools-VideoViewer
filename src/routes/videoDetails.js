@@ -6,7 +6,13 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   console.log(req.params);
   try {
-    const find = await Videos.findById(id).populate("comments");
+    const find = await Videos.findById(id).populate({
+      path: "comments",
+      populate: {
+        path: "replies",
+        model: "Replies",
+      },
+    });
 
     return res.status(200).json({
       status: "success",

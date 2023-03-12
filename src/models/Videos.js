@@ -23,8 +23,12 @@ const Videos = new mongoose.Schema(
     },
     likes: {
       // required: true,
-      type: Number,
-      default: 0,
+      type: [String],
+      default: [],
+    },
+    dislikes: {
+      type: [String],
+      default: [],
     },
     comments: [
       {
