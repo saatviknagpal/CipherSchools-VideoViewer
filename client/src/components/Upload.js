@@ -72,6 +72,9 @@ export default function Upload() {
       setLoading(false);
       if (res.status === "success") {
         toast.success("Upload successful");
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
       }
     } catch (err) {
       setLoading(false);

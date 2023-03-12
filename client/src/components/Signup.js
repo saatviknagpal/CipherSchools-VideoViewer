@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router";
 export default function Signup() {
   const [formData, setFormData] = useState({});
 
@@ -10,6 +11,7 @@ export default function Signup() {
       [e.target.name]: e.target.value,
     });
   };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +28,9 @@ export default function Signup() {
       const res = fetch.data;
       if (res.status === "success") {
         toast.success("You can now login");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       }
     } catch (error) {
       toast.error(error.response.data.message);
