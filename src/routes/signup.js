@@ -22,6 +22,7 @@ router.post("/", async (req, res, next) => {
       email,
       password: passwordhash,
     });
+    user.save();
 
     // const token = createJWT(user._id);
     // setCookies("devshowcase_jwt", token, {
