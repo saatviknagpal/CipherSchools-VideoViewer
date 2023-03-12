@@ -13,11 +13,14 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const fetch = await axios.post("/api/signup", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
+      const fetch = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/signup`,
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }
+      );
 
       const res = fetch.data;
       if (res.status === "success") {

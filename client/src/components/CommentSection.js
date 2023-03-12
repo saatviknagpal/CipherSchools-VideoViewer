@@ -18,11 +18,15 @@ export default function CommentSection({ setComments, comments }) {
       video_id: id,
       description,
     };
-    const axi = await axios.post("/api/addComment", formData, {
-      headers: {
-        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-      },
-    });
+    const axi = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/addComment`,
+      formData,
+      {
+        headers: {
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      }
+    );
 
     const res = axi.data;
     if (res.status === "success") {
@@ -40,22 +44,29 @@ export default function CommentSection({ setComments, comments }) {
       description: replyDescription,
       comment_id,
     };
-    const axi = await axios.post("/api/reply", formData, {
-      headers: {
-        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-      },
-    });
+    const axi = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/reply`,
+      formData,
+      {
+        headers: {
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      }
+    );
     const res = axi.data;
 
     if (res.status === "success") {
       toast.success(res.message);
     }
 
-    const getReplies = await axios.get(`/api/getComment/${comment_id}`, {
-      headers: {
-        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-      },
-    });
+    const getReplies = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/getComment/${comment_id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      }
+    );
 
     const replyRes = getReplies.data;
     if (replyRes.status === "success") {

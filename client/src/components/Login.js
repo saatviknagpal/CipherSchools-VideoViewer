@@ -17,10 +17,13 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const fetch = await axios.post("/api/login", {
-        email: formData.email,
-        password: formData.password,
-      });
+      const fetch = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/login`,
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
 
       const res = fetch.data;
       if (res.status === "success") {

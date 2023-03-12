@@ -47,14 +47,19 @@ export default function Upload() {
     data.append("description", description);
     console.log(data);
     try {
-      const fetch = await axios.post("/api/upload", data, {
-        headers: {
-          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-        },
-        onUploadProgress: (ProgressEvent) => {
-          setLoaded((ProgressEvent.loaded / ProgressEvent.total) * 100);
-        },
-      });
+      const fetch = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/upload`,
+        data,
+        {
+          headers: {
+            Authorization:
+              "Bearer " + JSON.parse(localStorage.getItem("token")),
+          },
+          onUploadProgress: (ProgressEvent) => {
+            setLoaded((ProgressEvent.loaded / ProgressEvent.total) * 100);
+          },
+        }
+      );
       const res = fetch.data;
       if (res.status === "success") {
         toast.success("Upload successful");

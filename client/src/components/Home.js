@@ -5,7 +5,9 @@ import VideoCards from "./VideoCards";
 export default function Home() {
   const [videoData, setVideoData] = useState([]);
   const fetchVideos = async () => {
-    const axi = await axios.get("/api/videoList");
+    const axi = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/videoList`
+    );
 
     const res = axi.data;
 

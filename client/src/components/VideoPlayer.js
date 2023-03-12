@@ -22,7 +22,9 @@ export default function VideoPlayer() {
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const user_id = userDetails?._id;
   const fetchVideoDetails = async () => {
-    const axi = await axios.get(`/api/videoDetails/${id}`);
+    const axi = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/videoDetails/${id}`
+    );
 
     const res = axi.data;
 
@@ -34,7 +36,9 @@ export default function VideoPlayer() {
     }
   };
   const fetchViews = async () => {
-    const axi = await axios.put(`/api/views/${id}`);
+    const axi = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/api/views/${id}`
+    );
 
     const res = axi.data;
 
@@ -49,7 +53,7 @@ export default function VideoPlayer() {
     }
     const axi = await axios({
       method: "put",
-      url: "/api/like/" + id,
+      url: process.env.REACT_APP_BACKEND_URL + "/api/like/" + id,
       headers: {
         Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
       },
@@ -68,8 +72,8 @@ export default function VideoPlayer() {
     }
 
     const axi = await axios({
-      method: "put",
-      url: "/api/dislike/" + id,
+      method: "PUT",
+      url: process.env.REACT_APP_BACKEND_URL + "/api/dislike/" + id,
       headers: {
         Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
       },
