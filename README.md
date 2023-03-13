@@ -29,6 +29,7 @@ To run this project locally, you will need to add the following environment vari
 ## Features
 
 - Stream videos
+- Upload your own videos
 - Responsive Mobile Design
 - Comment, Reply, Like, Dislike, Share
 
