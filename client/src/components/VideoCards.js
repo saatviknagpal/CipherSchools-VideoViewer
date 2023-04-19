@@ -19,7 +19,7 @@ export default function VideoCards({ data }) {
         <div className="p-5 space-y-5 flex flex-col">
           <h5 className="text-xl font-bold tracking-tight text-gray-900 break-words">
             {data.title}
-            <p className="mb-3 font-semibold text-gray-700 h-10 truncate ">
+            <p className="mb-3 font-semibold text-gray-700 text-sm truncate ">
             {data.views} Views
           </p>
           </h5>
