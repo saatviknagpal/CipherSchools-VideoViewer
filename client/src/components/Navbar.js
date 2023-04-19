@@ -58,11 +58,11 @@ export default function Navbar() {
             </>
           ) : (
             <>
+              <Link to="/upload" className="text-white mr-4">
+                Upload Videos
+              </Link>
               <Link to="/login" className="text-white mr-4">
                 Login
-              </Link>
-              <Link to="/signup" className="text-white mr-4">
-                Signup
               </Link>
             </>
           )}
