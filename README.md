@@ -7,7 +7,7 @@ VidLounge is an online platform that allows its users to watch and stream videos
 
 ## Demo
 
-https://cipher-schools-video-viewer.vercel.app/
+https://vidlounge.vercel.app/
 
 ## Environment Variables
 
