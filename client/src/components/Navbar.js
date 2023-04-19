@@ -12,7 +12,7 @@ export default function Navbar() {
       <ul className="flex justify-between items-center">
         <li>
           <Link to="/">
-            <h1 className="text-white font-medium">CipherSchools</h1>
+            <h1 className="text-white font-medium">VidLounge</h1>
           </Link>
         </li>
         <li className="flex gap-2">
