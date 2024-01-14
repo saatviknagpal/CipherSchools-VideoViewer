@@ -4,7 +4,6 @@
 VidLounge is an online platform that allows its users to watch and stream videos that are accessible on the site. In addition, users can interact with the videos by commenting, liking, disliking, or sharing them. Moreover, the website provides the option for users to upload their own videos, with a file size limit of 50 megabytes.
 
 
-
 ## Demo
 
 https://vidlounge.vercel.app/
